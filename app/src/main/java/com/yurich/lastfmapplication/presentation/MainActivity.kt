@@ -1,8 +1,9 @@
-package com.yurich.lastfmapplication
+package com.yurich.lastfmapplication.presentation
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import com.yurich.lastfmapplication.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

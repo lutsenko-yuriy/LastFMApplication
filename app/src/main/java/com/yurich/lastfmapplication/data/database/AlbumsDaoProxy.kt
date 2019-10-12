@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
 class AlbumsDaoProxy(
-    val dao: AlbumsDao
+    private val dao: AlbumsDao
 ) : AlbumsCrudInterface {
 
     override suspend fun getAllAlbums() = withContext(IO) {

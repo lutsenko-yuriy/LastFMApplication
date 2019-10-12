@@ -1,9 +1,9 @@
 package com.yurich.lastfmapplication.domain.albums
 
-import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
+import com.yurich.lastfmapplication.data.network.LastFMServiceAdapter
 
 interface AlbumsDataSource {
 
-    suspend fun getTracksByAlbum(artist: ArtistShortInfo, album: AlbumShortInfo): AlbumDetailedInfo
+    suspend fun getTracksByAlbum(album: AlbumShortInfo): LastFMServiceAdapter.Either<AlbumDetailedInfo>
 
 }

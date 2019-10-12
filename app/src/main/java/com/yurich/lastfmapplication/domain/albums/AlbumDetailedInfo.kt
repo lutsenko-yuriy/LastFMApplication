@@ -2,7 +2,7 @@ package com.yurich.lastfmapplication.domain.albums
 
 data class AlbumDetailedInfo(
     val shortInfo: AlbumShortInfo,
-    val albums: List<Track>
+    val tracks: List<Track>
 ) {
 
     data class Track(

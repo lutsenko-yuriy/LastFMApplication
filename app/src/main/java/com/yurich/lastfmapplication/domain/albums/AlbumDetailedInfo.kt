@@ -6,6 +6,7 @@ data class AlbumDetailedInfo(
 ) {
 
     data class Track(
+        val id: String,
         val duration: String,
         val name: String
     )

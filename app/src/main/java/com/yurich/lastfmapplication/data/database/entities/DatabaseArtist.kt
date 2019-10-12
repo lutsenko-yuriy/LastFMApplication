@@ -9,5 +9,7 @@ import androidx.room.PrimaryKey
 data class DatabaseArtist(
     @PrimaryKey
     val id: String,
-    val name: String
+    val name: String,
+    val previewUrl: String,
+    val coverUrl: String
 )

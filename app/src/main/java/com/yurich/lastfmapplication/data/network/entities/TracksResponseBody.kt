@@ -35,6 +35,8 @@ data class TracksResponseBody(
     )
 
     data class Track(
+        @SerializedName("url")
+        val id: String,
         @SerializedName("artist")
         val artist: Artist,
         @SerializedName("duration")

@@ -74,7 +74,7 @@ class LastFMServiceAdapter(
 
     }
 
-    override suspend fun getTracksByAlbum(
+    override suspend fun getAlbumDetailedInfo(
         album: AlbumShortInfo
     ): Either<AlbumDetailedInfo> = withContext(IO) {
         val response = service.getData(
@@ -164,7 +164,7 @@ class LastFMServiceAdapter(
         private fun TracksResponseBody.Album.toAlbumDetailedInfo(album: AlbumShortInfo) =
             AlbumDetailedInfo(
                 album,
-                this.tracks.track.map { AlbumDetailedInfo.Track(it.duration, it.name) }
+                this.tracks.track.map { AlbumDetailedInfo.Track(it.id, it.duration, it.name) }
             )
     }
 

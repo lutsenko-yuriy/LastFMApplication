@@ -5,7 +5,7 @@
     <string name="search_error_message">Failed to load data. Please try again later</string>
     <string name="search_button_text">Search</string>
     <string name="search_hint">Find an artist</string>
-    <string name="last_fm_base_url">http://ws.audioscrobbler.com/2.0/</string>
+    <string name="last_fm_base_url">http://ws.audioscrobbler.com/</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

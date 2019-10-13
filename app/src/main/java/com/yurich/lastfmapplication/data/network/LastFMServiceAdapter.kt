@@ -27,10 +27,12 @@ class LastFMServiceAdapter(
     ): Either<List<ArtistShortInfo>> = withContext(IO) {
         val response = service.getData(
             mapOf(
+                METHOD to "artist.search",
                 ARTIST_QUERY to query,
                 API_KEY to apiKey,
                 PAGE to page.toString(),
-                LIMIT to limit.toString()
+                LIMIT to limit.toString(),
+                FORMAT to "json"
             )
         )
 
@@ -54,10 +56,12 @@ class LastFMServiceAdapter(
     ): Either<List<AlbumShortInfo>> = withContext(IO) {
         val response = service.getData(
             mapOf(
+                METHOD to "artist.getTopAlbums",
                 ARTIST_QUERY to artist.name,
                 API_KEY to apiKey,
                 PAGE to page.toString(),
-                LIMIT to limit.toString()
+                LIMIT to limit.toString(),
+                FORMAT to "json"
             )
         )
 
@@ -79,9 +83,11 @@ class LastFMServiceAdapter(
     ): Either<AlbumDetailedInfo> = withContext(IO) {
         val response = service.getData(
             mapOf(
+                METHOD to "album.getInfo",
                 ARTIST_QUERY to album.artistShortInfo.name,
                 ALBUM_QUERY to album.name,
-                API_KEY to apiKey
+                API_KEY to apiKey,
+                FORMAT to "json"
             )
         )
 
@@ -101,9 +107,11 @@ class LastFMServiceAdapter(
     companion object {
 
         // common fields
+        private const val METHOD = "method"
         private const val API_KEY = "api_key"
         private const val LIMIT = "limit"
         private const val PAGE = "page"
+        private const val FORMAT = "format"
 
         // for artist queries
         private const val ARTIST_QUERY = "artist"

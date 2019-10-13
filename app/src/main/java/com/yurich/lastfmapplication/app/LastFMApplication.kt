@@ -2,10 +2,7 @@ package com.yurich.lastfmapplication.app
 
 import android.app.Application
 import com.facebook.stetho.Stetho
-import com.yurich.lastfmapplication.di.artistFragmentModule
-import com.yurich.lastfmapplication.di.databaseModule
-import com.yurich.lastfmapplication.di.networkModule
-import com.yurich.lastfmapplication.di.searchFragmentModule
+import com.yurich.lastfmapplication.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -26,7 +23,8 @@ class LastFMApplication : Application() {
                 networkModule,
                 databaseModule,
                 searchFragmentModule,
-                artistFragmentModule
+                artistFragmentModule,
+                albumFragmentModule
             ))
         }
     }

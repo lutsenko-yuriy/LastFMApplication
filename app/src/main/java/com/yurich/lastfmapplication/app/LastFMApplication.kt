@@ -19,7 +19,6 @@ class LastFMApplication : Application() {
             androidLogger()
 
             modules(listOf(
-                searchFragmentModule,
                 networkModule,
                 databaseModule
             ))

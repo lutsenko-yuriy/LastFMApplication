@@ -12,7 +12,7 @@ import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
 import com.yurich.lastfmapplication.utils.loadImage
 import kotlinx.android.synthetic.main.artist_list_item.view.*
 
-class ArtistsAdapter(val listener: OnArtistClickListener) : PagedListAdapter<ArtistShortInfo, ArtistsAdapter.ArtistViewHolder>(COMPARATOR) {
+class ArtistsAdapter(private val listener: OnArtistClickListener) : PagedListAdapter<ArtistShortInfo, ArtistsAdapter.ArtistViewHolder>(COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.artist_list_item, parent, false)

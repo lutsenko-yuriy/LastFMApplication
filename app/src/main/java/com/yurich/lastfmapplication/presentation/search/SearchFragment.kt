@@ -76,10 +76,12 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
     private fun submitQuery(query: String?) {
         if (!query.isNullOrBlank()) {
             viewModel.onQueryUpdated(query)
+            search_text_field?.clearFocus()
         }
     }
 
     override fun onArtistClick(artist: ArtistShortInfo) {
 
     }
+
 }

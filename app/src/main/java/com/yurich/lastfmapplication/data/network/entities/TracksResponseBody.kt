@@ -1,4 +1,4 @@
-package com.yurich.lastfmapplication.data.entities
+package com.yurich.lastfmapplication.data.network.entities
 import com.google.gson.annotations.SerializedName
 
 
@@ -35,6 +35,8 @@ data class TracksResponseBody(
     )
 
     data class Track(
+        @SerializedName("url")
+        val id: String,
         @SerializedName("artist")
         val artist: Artist,
         @SerializedName("duration")

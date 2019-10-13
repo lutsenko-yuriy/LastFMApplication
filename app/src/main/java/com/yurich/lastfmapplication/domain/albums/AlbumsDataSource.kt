@@ -4,6 +4,6 @@ import com.yurich.lastfmapplication.data.network.LastFMServiceAdapter
 
 interface AlbumsDataSource {
 
-    suspend fun getTracksByAlbum(album: AlbumShortInfo): LastFMServiceAdapter.Either<AlbumDetailedInfo>
+    suspend fun getAlbumDetailedInfo(album: AlbumShortInfo): LastFMServiceAdapter.Either<AlbumDetailedInfo>
 
 }

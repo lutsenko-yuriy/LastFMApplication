@@ -1,9 +1,9 @@
 package com.yurich.lastfmapplication.data.network
 
 import com.google.gson.Gson
-import com.yurich.lastfmapplication.data.entities.ArtistsResponseBody
-import com.yurich.lastfmapplication.data.entities.TopAlbumsResponseBody
-import com.yurich.lastfmapplication.data.entities.TracksResponseBody
+import com.yurich.lastfmapplication.data.network.entities.ArtistsResponseBody
+import com.yurich.lastfmapplication.data.network.entities.TopAlbumsResponseBody
+import com.yurich.lastfmapplication.data.network.entities.TracksResponseBody
 import com.yurich.lastfmapplication.domain.albums.AlbumDetailedInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumsDataSource
@@ -74,7 +74,7 @@ class LastFMServiceAdapter(
 
     }
 
-    override suspend fun getTracksByAlbum(
+    override suspend fun getAlbumDetailedInfo(
         album: AlbumShortInfo
     ): Either<AlbumDetailedInfo> = withContext(IO) {
         val response = service.getData(
@@ -164,7 +164,7 @@ class LastFMServiceAdapter(
         private fun TracksResponseBody.Album.toAlbumDetailedInfo(album: AlbumShortInfo) =
             AlbumDetailedInfo(
                 album,
-                this.tracks.track.map { AlbumDetailedInfo.Track(it.duration, it.name) }
+                this.tracks.track.map { AlbumDetailedInfo.Track(it.id, it.duration, it.name) }
             )
     }
 

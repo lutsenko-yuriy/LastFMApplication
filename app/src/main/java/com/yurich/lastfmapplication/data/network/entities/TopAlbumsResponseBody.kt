@@ -1,4 +1,4 @@
-package com.yurich.lastfmapplication.data.entities
+package com.yurich.lastfmapplication.data.network.entities
 
 import com.google.gson.annotations.SerializedName
 

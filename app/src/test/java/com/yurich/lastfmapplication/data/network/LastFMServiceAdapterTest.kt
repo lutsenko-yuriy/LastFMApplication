@@ -56,7 +56,7 @@ class LastFMServiceAdapterTest {
     }
 
     private val mockTrack by lazy {
-        AlbumDetailedInfo.Track("238", "Believe")
+        AlbumDetailedInfo.Track("https://www.last.fm/music/Cher/_/Believe", "238", "Believe")
     }
 
     @Test
@@ -247,7 +247,7 @@ url: "https://www.last.fm/music/Cher"
             )
         }
 
-        val tracks = adapter.getTracksByAlbum(mockAlbum)
+        val tracks = adapter.getAlbumDetailedInfo(mockAlbum)
 
         verify(service, times(1)).getData(any())
 

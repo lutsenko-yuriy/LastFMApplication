@@ -1,5 +1,6 @@
 package com.yurich.lastfmapplication.presentation.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,9 +22,21 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
         fun newInstance() = SearchFragment()
     }
 
+    private var listener: OnArtistSelectedListener? = null
+
     private val viewModel: SearchViewModel by viewModel()
 
     private val adapter = ArtistsAdapter(this)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? OnArtistSelectedListener
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +94,11 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
     }
 
     override fun onArtistClick(artist: ArtistShortInfo) {
+        listener?.onArtistSelected(artist)
+    }
 
+    interface OnArtistSelectedListener {
+        fun onArtistSelected(artist: ArtistShortInfo)
     }
 
 }

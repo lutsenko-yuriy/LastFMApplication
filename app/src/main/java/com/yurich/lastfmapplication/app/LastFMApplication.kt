@@ -2,6 +2,7 @@ package com.yurich.lastfmapplication.app
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import com.yurich.lastfmapplication.di.artistFragmentModule
 import com.yurich.lastfmapplication.di.databaseModule
 import com.yurich.lastfmapplication.di.networkModule
 import com.yurich.lastfmapplication.di.searchFragmentModule
@@ -24,7 +25,8 @@ class LastFMApplication : Application() {
             modules(listOf(
                 networkModule,
                 databaseModule,
-                searchFragmentModule
+                searchFragmentModule,
+                artistFragmentModule
             ))
         }
     }

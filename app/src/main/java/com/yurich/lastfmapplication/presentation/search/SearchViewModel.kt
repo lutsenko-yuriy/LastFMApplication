@@ -14,6 +14,7 @@ class SearchViewModel(
     val service: ArtistsDataSource
 ) : ViewModel() {
 
+    val errorLiveData = MutableLiveData<Boolean>()
     private val queryLiveData = MutableLiveData<String>()
     private val pagedListsLiveData = queryLiveData.map { newPagingLiveData(it) }
     val listLiveData = pagedListsLiveData.switchMap { it }
@@ -45,6 +46,8 @@ class SearchViewModel(
 
                 if (data is LastFMServiceAdapter.Either.Result) {
                     callback.onResult(data.result, 0, 2)
+                } else {
+                    errorLiveData.postValue(true)
                 }
             }
         }
@@ -58,6 +61,8 @@ class SearchViewModel(
 
                 if (data is LastFMServiceAdapter.Either.Result) {
                     callback.onResult(data.result, params.key + 1)
+                } else {
+                    errorLiveData.postValue(true)
                 }
             }
         }

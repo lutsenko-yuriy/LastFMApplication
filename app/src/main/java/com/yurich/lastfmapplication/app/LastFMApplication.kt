@@ -20,7 +20,8 @@ class LastFMApplication : Application() {
 
             modules(listOf(
                 networkModule,
-                databaseModule
+                databaseModule,
+                searchFragmentModule
             ))
         }
     }

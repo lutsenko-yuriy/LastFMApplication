@@ -31,8 +31,8 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSearch()
         initList()
+        initSearch()
     }
 
     private fun initSearch() {
@@ -59,7 +59,11 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
 
     private fun initList() {
         search_result?.adapter = adapter
+        viewModel.errorLiveData.observe(this, Observer {
+            search_error_message?.visibility = View.VISIBLE
+        })
         viewModel.listLiveData.observe(this, Observer {
+            search_error_message?.visibility = View.GONE
             adapter.submitList(it)
         })
     }

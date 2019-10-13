@@ -8,6 +8,7 @@ import androidx.paging.PagedList
 import com.yurich.lastfmapplication.data.network.LastFMServiceAdapter
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
 import com.yurich.lastfmapplication.domain.artists.ArtistsDataSource
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -45,7 +46,7 @@ class SearchViewModel(
                 val data = service.getArtistsByQuery(query, 1, params.requestedLoadSize)
 
                 if (data is LastFMServiceAdapter.Either.Result) {
-                    callback.onResult(data.result, 0, 2)
+                    callback.onResult(data.result, null, 2)
                 } else {
                     errorLiveData.postValue(true)
                 }
@@ -72,6 +73,11 @@ class SearchViewModel(
             callback: LoadCallback<Int, ArtistShortInfo>
         ) {
 
+        }
+
+        override fun invalidate() {
+            super.invalidate()
+            viewModelScope.cancel()
         }
 
     }

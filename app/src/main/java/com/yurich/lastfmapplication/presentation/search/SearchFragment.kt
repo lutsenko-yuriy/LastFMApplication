@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.yurich.lastfmapplication.R
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
 import kotlinx.android.synthetic.main.search_fragment.*
@@ -59,6 +62,8 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
 
     private fun initList() {
         search_result?.adapter = adapter
+        search_result?.layoutManager = LinearLayoutManager(context, VERTICAL, false)
+        search_result?.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         viewModel.errorLiveData.observe(this, Observer {
             search_error_message?.visibility = View.VISIBLE
         })

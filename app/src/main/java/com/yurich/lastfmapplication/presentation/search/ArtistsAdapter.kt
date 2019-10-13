@@ -18,7 +18,7 @@ class ArtistsAdapter(private val listener: OnArtistClickListener) : PagedListAda
         val view = LayoutInflater.from(parent.context).inflate(R.layout.artist_list_item, parent, false)
         val viewHolder =  ArtistViewHolder(view)
 
-        viewHolder.itemView.setOnClickListener {
+        view.setOnClickListener {
             if (viewHolder.adapterPosition != NO_POSITION) {
                 listener.onArtistClick(viewHolder.item)
             }
@@ -28,18 +28,18 @@ class ArtistsAdapter(private val listener: OnArtistClickListener) : PagedListAda
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.run { holder.bind(this) }
     }
 
 
     class ArtistViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val artistImage = itemView.preview
-        val artistName = itemView.artist_name
+        private val artistImage = itemView.preview
+        private val artistName = itemView.artist_name
 
         lateinit var item: ArtistShortInfo
 
-        fun bind(newItem: ArtistShortInfo?) = newItem?.run {
+        fun bind(newItem: ArtistShortInfo) {
             this@ArtistViewHolder.item = newItem
             artistName.text = item.name
             artistImage.loadImage(item.images.previewUrl)

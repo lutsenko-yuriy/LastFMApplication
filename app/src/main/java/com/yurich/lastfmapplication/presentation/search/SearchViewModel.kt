@@ -14,23 +14,26 @@ class SearchViewModel(
     val service: ArtistsDataSource
 ) : ViewModel() {
 
-    private val pagedListsLiveData = MutableLiveData<LiveData<PagedList<ArtistShortInfo>>>()
-    val liveData = Transformations.switchMap(pagedListsLiveData) { it }
+    private val queryLiveData = MutableLiveData<String>()
+    private val pagedListsLiveData = queryLiveData.map { newPagingLiveData(it) }
+    val listLiveData = pagedListsLiveData.switchMap { it }
 
     fun onQueryUpdated(query: String) {
+        queryLiveData.postValue(query)
+    }
+
+    private fun newPagingLiveData(query: String): LiveData<PagedList<ArtistShortInfo>> {
         val dataSourceFactory = object : DataSource.Factory<Int, ArtistShortInfo>() {
             override fun create(): DataSource<Int, ArtistShortInfo> {
                 return ArtistPagingDataSource(query)
             }
         }
-        pagedListsLiveData.postValue(
-            LivePagedListBuilder<Int, ArtistShortInfo>(dataSourceFactory, DEFAULT_PAGE_SIZE)
+        return LivePagedListBuilder<Int, ArtistShortInfo>(dataSourceFactory, DEFAULT_PAGE_SIZE)
                 .setInitialLoadKey(1)
                 .build()
-        )
     }
 
-    inner class ArtistPagingDataSource(private val query: String) :
+    private inner class ArtistPagingDataSource(private val query: String) :
         PageKeyedDataSource<Int, ArtistShortInfo>() {
 
         override fun loadInitial(

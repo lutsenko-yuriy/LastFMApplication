@@ -6,20 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.search.SearchFragment">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_text_field"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:queryHint="@string/search_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/search_button"
-        app:layout_constraintEnd_toStartOf="@+id/search_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_button" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/search_button"
         android:layout_width="wrap_content"
@@ -27,8 +13,24 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/search_button_text"
+        app:layout_constraintBottom_toBottomOf="@+id/search_text_field"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/search_text_field"
+        app:layout_constraintTop_toTopOf="@+id/search_text_field" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_text_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toStartOf="@+id/search_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_hint" />
 
     <TextView
         android:id="@+id/search_error_message"
@@ -45,16 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_text_field" />
-
-    <ProgressBar
-        android:id="@+id/search_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_error_message" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_result"

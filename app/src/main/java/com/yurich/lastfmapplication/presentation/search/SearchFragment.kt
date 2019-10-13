@@ -1,4 +1,4 @@
-package com.yurich.lastfmapplication.presentation.search_container.search
+package com.yurich.lastfmapplication.presentation.search
 
 import android.os.Bundle
 import android.view.LayoutInflater

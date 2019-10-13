@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import com.yurich.lastfmapplication.R
+import com.yurich.lastfmapplication.presentation.search.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_search -> {
                 supportFragmentManager.beginTransaction()
                     .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .replace(R.id.fragment_container, SearchFragment.newInstance())
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -31,5 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        navigation.selectedItemId = R.id.navigation_search
     }
 }

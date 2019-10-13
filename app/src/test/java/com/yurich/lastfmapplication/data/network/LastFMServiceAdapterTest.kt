@@ -31,7 +31,7 @@ class LastFMServiceAdapterTest {
     private val mockArtist: ArtistShortInfo by lazy {
         ArtistShortInfo(
             "Cher",
-            "bfcc6d75-a6a5-4bc6-8282-47aec8531818",
+            "https://www.last.fm/music/Cher",
             ArtistShortInfo.Images(
                 "https://lastfm.freetls.fastly.net/i/u/64s/2a96cbd8b46e442fc41c2b86b821562f.png",
                 "https://lastfm.freetls.fastly.net/i/u/174s/2a96cbd8b46e442fc41c2b86b821562f.png"
@@ -46,7 +46,7 @@ class LastFMServiceAdapterTest {
     private val mockAlbum: AlbumShortInfo by lazy {
         AlbumShortInfo(
             "Believe",
-            "63b3a8ca-26f2-4e2b-b867-647a6ec2bebd",
+            "https://www.last.fm/music/Cher/Believe",
             AlbumShortInfo.Images(
                 "https://lastfm.freetls.fastly.net/i/u/64s/3b54885952161aaea4ce2965b2db1638.png",
                 "https://lastfm.freetls.fastly.net/i/u/174s/3b54885952161aaea4ce2965b2db1638.png"

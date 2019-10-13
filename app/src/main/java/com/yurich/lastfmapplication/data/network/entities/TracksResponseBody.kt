@@ -46,12 +46,10 @@ data class TracksResponseBody(
     )
 
     data class Artist(
-        @SerializedName("mbid")
-        val mbid: String,
-        @SerializedName("name")
-        val name: String,
         @SerializedName("url")
-        val url: String
+        val id: String,
+        @SerializedName("name")
+        val name: String
     )
 
 }

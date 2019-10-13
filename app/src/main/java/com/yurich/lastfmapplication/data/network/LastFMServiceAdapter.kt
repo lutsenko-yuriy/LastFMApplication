@@ -123,7 +123,7 @@ class LastFMServiceAdapter(
         fun ArtistsResponseBody.NetworkArtist.toArtistShortInfo() =
             ArtistShortInfo(
                 this.name,
-                this.mbid,
+                this.id,
                 this.getArtistImages()
             )
 
@@ -147,7 +147,7 @@ class LastFMServiceAdapter(
         private fun TopAlbumsResponseBody.Album.toAlbumShortInfo(artistShortInfo: ArtistShortInfo) =
             AlbumShortInfo(
                 this.name,
-                this.mbid,
+                this.id,
                 this.getAlbumImages(),
                 artistShortInfo
             )

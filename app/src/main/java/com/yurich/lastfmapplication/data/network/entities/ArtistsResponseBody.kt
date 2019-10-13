@@ -21,12 +21,10 @@ data class ArtistsResponseBody(
     data class NetworkArtist(
         @SerializedName("image")
         val image: List<Image>,
-        @SerializedName("mbid")
-        val mbid: String,
-        @SerializedName("name")
-        val name: String,
         @SerializedName("url")
-        val url: String
+        val id: String,
+        @SerializedName("name")
+        val name: String
     ) {
 
         data class Image(

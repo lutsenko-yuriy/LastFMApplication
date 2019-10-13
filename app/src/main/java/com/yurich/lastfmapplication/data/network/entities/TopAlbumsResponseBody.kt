@@ -18,8 +18,8 @@ data class TopAlbumsResponseBody(
         val artist: Artist,
         @SerializedName("image")
         val image: List<Image>,
-        @SerializedName("mbid")
-        val mbid: String,
+        @SerializedName("url")
+        val id: String,
         @SerializedName("name")
         val name: String
     )

@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.yurich.lastfmapplication.R
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
@@ -44,7 +48,8 @@ class ArtistFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         artist_albums?.adapter = adapter
-        artist_albums?.layoutManager = GridLayoutManager(context, 2)
+        artist_albums?.layoutManager = LinearLayoutManager(context, VERTICAL, false)
+        artist_albums?.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
 
         viewModel.artistLiveData.observe(this, Observer {
             artist_cover.loadImage(it.images.coverUrl)

@@ -9,6 +9,7 @@ import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumsCrudInterface
+import com.yurich.lastfmapplication.presentation.artist.ArtistViewModel.Companion.DEFAULT_PAGE_SIZE
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -68,7 +69,4 @@ class FavoritesViewModel(
 
     }
 
-    companion object {
-        const val DEFAULT_PAGE_SIZE = 10
-    }
 }

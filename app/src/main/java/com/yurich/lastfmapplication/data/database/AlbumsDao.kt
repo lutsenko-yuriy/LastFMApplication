@@ -14,15 +14,6 @@ abstract class AlbumsDao {
         """
             SELECT albums.*, artists.* 
                 FROM albums INNER JOIN artists 
-                        ON albums.album_artistId = artists.artist_id
-        """
-    )
-    abstract suspend fun getAlbumsShortInfo(): List<DatabaseAlbumShortInfo>
-
-    @Query(
-        """
-            SELECT albums.*, artists.* 
-                FROM albums INNER JOIN artists 
                         ON albums.album_artistId = artists.artist_id 
             LIMIT :limit OFFSET :offset 
         """

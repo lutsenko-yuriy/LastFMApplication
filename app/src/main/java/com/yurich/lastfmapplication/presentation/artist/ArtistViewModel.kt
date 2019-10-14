@@ -22,7 +22,7 @@ class ArtistViewModel(
     val albumsLiveData = artistLiveData
         .switchMap { newPagingLiveData(it) }
 
-    val errorLiveData = MutableLiveData<Boolean>()
+    val errorLiveData = MutableLiveData<Unit>()
 
     private fun newPagingLiveData(artist: ArtistShortInfo): LiveData<PagedList<AlbumShortInfo>> {
         val dataSourceFactory = object : DataSource.Factory<Int, AlbumShortInfo>() {
@@ -48,7 +48,7 @@ class ArtistViewModel(
                 if (data is Either.Result) {
                     callback.onResult(data.result, null, 2)
                 } else {
-                    errorLiveData.postValue(true)
+                    errorLiveData.postValue(Unit)
                 }
             }
         }
@@ -63,7 +63,7 @@ class ArtistViewModel(
                 if (data is Either.Result) {
                     callback.onResult(data.result, params.key + 1)
                 } else {
-                    errorLiveData.postValue(true)
+                    errorLiveData.postValue(Unit)
                 }
             }
         }

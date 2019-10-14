@@ -15,7 +15,7 @@ class SearchViewModel(
     val service: ArtistsDataSource
 ) : ViewModel() {
 
-    val errorLiveData = MutableLiveData<Boolean>()
+    val errorLiveData = MutableLiveData<Unit>()
     private val queryLiveData = MutableLiveData<String>()
     private val pagedListsLiveData = queryLiveData.map { newPagingLiveData(it) }
     val listLiveData = pagedListsLiveData.switchMap { it }
@@ -48,7 +48,7 @@ class SearchViewModel(
                 if (data is Either.Result) {
                     callback.onResult(data.result, null, 2)
                 } else {
-                    errorLiveData.postValue(true)
+                    errorLiveData.postValue(Unit)
                 }
             }
         }
@@ -63,7 +63,7 @@ class SearchViewModel(
                 if (data is Either.Result) {
                     callback.onResult(data.result, params.key + 1)
                 } else {
-                    errorLiveData.postValue(true)
+                    errorLiveData.postValue(Unit)
                 }
             }
         }
@@ -83,6 +83,6 @@ class SearchViewModel(
     }
 
     companion object {
-        const val DEFAULT_PAGE_SIZE = 30
+        const val DEFAULT_PAGE_SIZE = 15
     }
 }

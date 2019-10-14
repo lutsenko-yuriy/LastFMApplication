@@ -52,13 +52,13 @@ class FavoritesFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        favorite_albums_list?.adapter = adapter
-        favorite_albums_list?.layoutManager = LinearLayoutManager(context, VERTICAL, false)
-        favorite_albums_list?.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
-
         favorite_albums_fill?.setOnClickListener {
             (parentFragment as? OnSearchSelectedListener)?.onSearchSelected()
         }
+
+        favorite_albums_list?.adapter = adapter
+        favorite_albums_list?.layoutManager = LinearLayoutManager(context, VERTICAL, false)
+        favorite_albums_list?.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
 
         viewModel.favoritesAlbumsLiveData.observe(this, Observer {
             favorite_albums_bar?.visibility = View.GONE

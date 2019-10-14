@@ -14,10 +14,6 @@ class AlbumsDaoProxy(
     private val dao: AlbumsDao
 ) : AlbumsCrudInterface, AlbumsDataSource {
 
-    override suspend fun getAllAlbums() = withContext(IO) {
-        dao.getAlbumsShortInfo().map { it.toAlbumShortInfo() }
-    }
-
     override suspend fun getPagedAlbums(page: Int, limit: Int) =
         withContext(IO) {
             dao.getAlbumsShortInfoFromInterval(page * limit, limit)

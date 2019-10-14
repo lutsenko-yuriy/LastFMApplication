@@ -79,7 +79,7 @@ class AlbumsDaoProxy(
             val artistInfo = this.shortInfo.artistShortInfo.toDatabaseArtist()
             val albumInfo = this.shortInfo.toDatabaseAlbum()
 
-            val tracks = this.tracks.map { DatabaseTrack(it.id, albumInfo.id, it.name, it.duration) }
+            val tracks = this.tracks.map { DatabaseTrack(it.id, albumInfo.id, it.duration, it.name) }
 
             return DatabaseAlbumDetailedInfo(albumInfo, artistInfo, tracks)
         }

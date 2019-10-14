@@ -16,7 +16,7 @@ class FavoritesViewModel(
     private val crud: AlbumsCrudInterface
 ) : ViewModel() {
 
-    val albumsLiveData = newPagingLiveData()
+    val favoritesAlbumsLiveData = newPagingLiveData()
 
     private fun newPagingLiveData(): LiveData<PagedList<AlbumShortInfo>> {
         val dataSourceFactory = object : DataSource.Factory<Int, AlbumShortInfo>() {

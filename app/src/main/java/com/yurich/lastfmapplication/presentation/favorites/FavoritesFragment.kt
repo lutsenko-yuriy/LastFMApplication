@@ -60,7 +60,7 @@ class FavoritesFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
             (parentFragment as? OnSearchSelectedListener)?.onSearchSelected()
         }
 
-        viewModel.albumsLiveData.observe(this, Observer {
+        viewModel.favoritesAlbumsLiveData.observe(this, Observer {
             favorite_albums_bar?.visibility = View.GONE
             if (it.isEmpty()) {
                 favorite_albums_list?.visibility = View.GONE

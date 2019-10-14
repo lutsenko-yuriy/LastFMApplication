@@ -3,7 +3,7 @@ package com.yurich.lastfmapplication.data.database
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy.IGNORE
 import androidx.room.Query
 import com.yurich.lastfmapplication.data.database.entities.*
 
@@ -14,7 +14,7 @@ abstract class AlbumsDao {
         """
             SELECT albums.*, artists.* 
                 FROM albums INNER JOIN artists 
-                    ON albums.album_artistId = artists.artist_id
+                        ON albums.album_artistId = artists.artist_id
         """
     )
     abstract suspend fun getAlbumsShortInfo(): List<DatabaseAlbumShortInfo>
@@ -23,22 +23,29 @@ abstract class AlbumsDao {
         """
             SELECT albums.*, artists.* 
                 FROM albums INNER JOIN artists 
-                    ON albums.album_artistId = artists.artist_id 
+                        ON albums.album_artistId = artists.artist_id 
             LIMIT :limit OFFSET :offset 
         """
     )
     abstract suspend fun getAlbumsShortInfoFromInterval(offset: Int, limit: Int): List<DatabaseAlbumShortInfo>
 
-    @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id WHERE albums.album_id == :albumsId")
+    @Query(
+        """
+            SELECT albums.*, artists.* 
+                FROM albums INNER JOIN artists 
+                        ON albums.album_artistId = artists.artist_id 
+                    WHERE albums.album_id == :albumsId
+        """
+    )
     abstract suspend fun getAlbumsDetailedInfo(albumsId: String): List<DatabaseAlbumDetailedInfo>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     abstract suspend fun putAlbum(albums: List<DatabaseAlbum>)
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     abstract suspend fun putArtist(artists: List<DatabaseArtist>)
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     abstract suspend fun putTracks(tracks: List<DatabaseTrack>)
 
     open suspend fun putAlbumDetails(album: DatabaseAlbumDetailedInfo) {

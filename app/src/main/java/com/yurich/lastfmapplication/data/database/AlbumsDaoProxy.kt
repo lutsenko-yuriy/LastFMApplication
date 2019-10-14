@@ -19,7 +19,7 @@ class AlbumsDaoProxy(
     }
 
     override suspend fun putAlbum(album: AlbumDetailedInfo) = withContext(IO) {
-        dao.putAlbumData(album.toDatabaseAlbumDetailedInfo())
+        dao.putAlbumDetails(album.toDatabaseAlbumDetailedInfo())
     }
 
     override suspend fun deleteAlbum(album: AlbumDetailedInfo) = withContext(IO) {

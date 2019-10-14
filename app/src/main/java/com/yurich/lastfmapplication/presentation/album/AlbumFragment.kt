@@ -32,7 +32,13 @@ class AlbumFragment : Fragment() {
 
     private val adapter = TracksAdapter()
 
-    private val viewModel by viewModel<AlbumViewModel> { parametersOf(arguments?.getParcelable<AlbumShortInfo>(ALBUM)) }
+    private val viewModel by viewModel<AlbumViewModel> {
+        parametersOf(
+            arguments?.getParcelable<AlbumShortInfo>(
+                ALBUM
+            )
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +51,8 @@ class AlbumFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         album_like?.setOnClickListener {
-            viewModel.toggleFavorite(album_like?.isChecked == false)
+            album_like_status?.text = getString(R.string.album_status_loading)
+            viewModel.toggleFavorite()
         }
         viewModel.albumLiveData.observe(this, Observer {
             album_cover?.loadImage(it.shortInfo.images.coverUrl)
@@ -54,7 +61,14 @@ class AlbumFragment : Fragment() {
             updateTracks(it.tracks)
         })
         viewModel.albumSourceLiveData.observe(this, Observer {
-            album_like?.isChecked = it
+            album_like_status?.text = getString(
+                if (it) {
+                    R.string.album_like_title
+                } else {
+                    R.string.album_dislike_title
+                }
+            )
+            album_like_container?.visibility = View.VISIBLE
         })
         initTracksList()
     }

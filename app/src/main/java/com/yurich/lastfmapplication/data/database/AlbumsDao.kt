@@ -8,11 +8,11 @@ import com.yurich.lastfmapplication.data.database.entities.*
 abstract class AlbumsDao {
 
     @Transaction
-    @Query("SELECT * FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id")
+    @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id")
     abstract suspend fun getAlbumsShortInfo(): List<DatabaseAlbumShortInfo>
 
     @Transaction
-    @Query("SELECT * FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id WHERE albums.album_id == :albumsId")
+    @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id WHERE albums.album_id == :albumsId")
     abstract suspend fun getAlbumsDetailedInfo(albumsId: String): List<DatabaseAlbumDetailedInfo>
 
     @Update(onConflict = REPLACE)
@@ -25,13 +25,13 @@ abstract class AlbumsDao {
     abstract suspend fun putTracks(tracks: List<DatabaseTrack>)
 
     @Transaction
-    open suspend fun putAlbumData(albumData: DatabaseAlbumDetailedInfo) {
-        putAlbum(albumData.album)
-        putArtist(albumData.artist)
-        putTracks(albumData.tracks)
+    open suspend fun putAlbumDetails(album: DatabaseAlbumDetailedInfo) {
+        putAlbum(album.album)
+        putArtist(album.artist)
+        putTracks(album.tracks)
     }
 
-    @Delete
+            @Delete
     abstract suspend fun removeArtist(artist: DatabaseArtist)
 
     @Delete

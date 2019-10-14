@@ -20,6 +20,12 @@ class AlbumViewModel(
 
     init {
         viewModelScope.launch {
+            getAlbumDetailedInfo()
+        }
+    }
+
+    private suspend fun getAlbumDetailedInfo() {
+        viewModelScope.launch {
             val albumStatus = singleAlbumsDataSource.getAlbumDetailedInfo(album)
             if (albumStatus.result is Either.Result) {
                 albumLiveData.postValue(albumStatus.result.result)
@@ -28,15 +34,16 @@ class AlbumViewModel(
         }
     }
 
-    fun toggleFavorite(isFavorite: Boolean) {
+    fun toggleFavorite() {
         viewModelScope.launch {
+            val isFavorite = albumSourceLiveData.value == false
             albumLiveData.value?.run {
                 if (isFavorite) {
                     crud.putAlbum(this)
                 } else {
                     crud.deleteAlbum(this)
                 }
-                albumSourceLiveData.postValue(isFavorite)
+                getAlbumDetailedInfo()
             }
         }
     }

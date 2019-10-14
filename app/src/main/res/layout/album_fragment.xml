@@ -25,15 +25,29 @@
             android:textSize="24sp"
             app:fontFamily="sans-serif-medium" />
 
-        <ToggleButton
-            android:id="@+id/album_like"
+        <LinearLayout
+            android:id="@+id/album_like_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOn="@string/album_like_title"
-            android:textOff="@string/album_dislike_title"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone"
-            android:padding="4dp" />
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/album_like"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/album_like_button" />
+
+            <TextView
+                android:id="@+id/album_like_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="4dp" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/album_tracks"

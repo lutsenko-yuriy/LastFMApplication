@@ -24,7 +24,8 @@ class LastFMApplication : Application() {
                 databaseModule,
                 searchFragmentModule,
                 artistFragmentModule,
-                albumFragmentModule
+                albumFragmentModule,
+                favoritesFragmentModule
             ))
         }
     }

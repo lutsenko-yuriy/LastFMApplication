@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yurich.lastfmapplication.R
+import com.yurich.lastfmapplication.presentation.favorites.FavoritesFragment
 import com.yurich.lastfmapplication.presentation.search.SearchFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),
+    OnHomeSelectedListener,
+    OnSearchSelectedListener {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 childFragmentManager.beginTransaction()
                     .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .replace(R.id.fragment_container, FavoritesFragment.newInstance())
                     .commit()
                 return@OnNavigationItemSelectedListener true
             }
@@ -48,4 +52,11 @@ class MainFragment : Fragment() {
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
 
+    override fun onHomeSelected() {
+        navigation.selectedItemId = R.id.navigation_home
+    }
+
+    override fun onSearchSelected() {
+        navigation.selectedItemId = R.id.navigation_search
+    }
 }

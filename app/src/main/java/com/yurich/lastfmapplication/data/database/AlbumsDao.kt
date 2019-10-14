@@ -10,8 +10,24 @@ import com.yurich.lastfmapplication.data.database.entities.*
 @Dao
 abstract class AlbumsDao {
 
-    @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id")
+    @Query(
+        """
+            SELECT albums.*, artists.* 
+                FROM albums INNER JOIN artists 
+                    ON albums.album_artistId = artists.artist_id
+        """
+    )
     abstract suspend fun getAlbumsShortInfo(): List<DatabaseAlbumShortInfo>
+
+    @Query(
+        """
+            SELECT albums.*, artists.* 
+                FROM albums INNER JOIN artists 
+                    ON albums.album_artistId = artists.artist_id 
+            LIMIT :limit OFFSET :offset 
+        """
+    )
+    abstract suspend fun getAlbumsShortInfoFromInterval(offset: Int, limit: Int): List<DatabaseAlbumShortInfo>
 
     @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id WHERE albums.album_id == :albumsId")
     abstract suspend fun getAlbumsDetailedInfo(albumsId: String): List<DatabaseAlbumDetailedInfo>

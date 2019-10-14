@@ -1,4 +1,4 @@
-package com.yurich.lastfmapplication.presentation.artist
+package com.yurich.lastfmapplication.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +11,14 @@ import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.utils.loadImage
 import kotlinx.android.synthetic.main.album_list_item.view.*
 
-class AlbumsAdapter(private val listener: OnAlbumClickListener) : PagedListAdapter<AlbumShortInfo, AlbumsAdapter.AlbumViewHolder>(COMPARATOR) {
+class AlbumsAdapter(private val listener: OnAlbumClickListener) : PagedListAdapter<AlbumShortInfo, AlbumsAdapter.AlbumViewHolder>(
+    COMPARATOR
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.album_list_item, parent, false)
-        val viewHolder =  AlbumViewHolder(view)
+        val viewHolder =
+            AlbumViewHolder(view)
 
         view.setOnClickListener {
             if (viewHolder.adapterPosition != RecyclerView.NO_POSITION) {

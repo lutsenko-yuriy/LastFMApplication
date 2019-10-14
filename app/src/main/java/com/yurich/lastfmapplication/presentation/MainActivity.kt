@@ -11,8 +11,8 @@ import com.yurich.lastfmapplication.presentation.main.MainFragment
 import com.yurich.lastfmapplication.presentation.search.SearchFragment
 
 class MainActivity : AppCompatActivity(),
-        SearchFragment.OnArtistSelectedListener,
-        ArtistFragment.OnAlbumSelectedListener
+    SearchFragment.OnArtistSelectedListener,
+    OnAlbumSelectedListener
 {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +39,5 @@ class MainActivity : AppCompatActivity(),
             .addToBackStack(null)
             .commit()
     }
-
 
 }

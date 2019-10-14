@@ -13,4 +13,5 @@
     <string name="album_dislike_title">I don\'t like it</string>
     <string name="album_like_button">Like</string>
     <string name="album_status_loading">Loading...</string>
+    <string name="favorite_albums_fill_text">Fill your collection now!</string>
 </resources>

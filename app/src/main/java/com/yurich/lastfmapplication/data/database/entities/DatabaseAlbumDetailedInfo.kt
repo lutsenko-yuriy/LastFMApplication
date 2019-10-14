@@ -8,6 +8,6 @@ data class DatabaseAlbumDetailedInfo(
     val album: DatabaseAlbum,
     @Embedded
     val artist: DatabaseArtist,
-    @Relation(entity = DatabaseTrack::class, parentColumn = "albums.id", entityColumn = "albumId")
+    @Relation(entity = DatabaseTrack::class, parentColumn = "album_id", entityColumn = "track_albumId")
     val tracks: List<DatabaseTrack>
 )

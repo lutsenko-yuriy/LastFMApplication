@@ -12,7 +12,8 @@ import com.yurich.lastfmapplication.data.database.entities.DatabaseTrack
         DatabaseAlbum::class,
         DatabaseTrack::class
     ],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class AlbumsDatabase : RoomDatabase() {
 

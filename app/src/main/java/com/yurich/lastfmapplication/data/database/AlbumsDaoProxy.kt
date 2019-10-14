@@ -1,12 +1,12 @@
 package com.yurich.lastfmapplication.data.database
 
-import com.yurich.lastfmapplication.domain.status.Either
 import com.yurich.lastfmapplication.data.database.entities.*
 import com.yurich.lastfmapplication.domain.albums.AlbumDetailedInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumsCrudInterface
 import com.yurich.lastfmapplication.domain.albums.AlbumsDataSource
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
+import com.yurich.lastfmapplication.domain.status.Either
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
@@ -14,9 +14,11 @@ class AlbumsDaoProxy(
     private val dao: AlbumsDao
 ) : AlbumsCrudInterface, AlbumsDataSource {
 
-    override suspend fun getAllAlbums() = withContext(IO) {
-        dao.getAlbumsShortInfo().map { it.toAlbumShortInfo() }
-    }
+    override suspend fun getPagedAlbums(page: Int, limit: Int) =
+        withContext(IO) {
+            dao.getAlbumsShortInfoFromInterval(page * limit, limit)
+                .map { it.toAlbumShortInfo() }
+        }
 
     override suspend fun putAlbum(album: AlbumDetailedInfo) = withContext(IO) {
         dao.putAlbumDetails(album.toDatabaseAlbumDetailedInfo())
@@ -79,7 +81,8 @@ class AlbumsDaoProxy(
             val artistInfo = this.shortInfo.artistShortInfo.toDatabaseArtist()
             val albumInfo = this.shortInfo.toDatabaseAlbum()
 
-            val tracks = this.tracks.map { DatabaseTrack(it.id, albumInfo.id, it.duration, it.name) }
+            val tracks =
+                this.tracks.map { DatabaseTrack(it.id, albumInfo.id, it.duration, it.name) }
 
             return DatabaseAlbumDetailedInfo(albumInfo, artistInfo, tracks)
         }
@@ -88,6 +91,12 @@ class AlbumsDaoProxy(
             DatabaseArtist(this.id, this.name, this.images.previewUrl, this.images.coverUrl)
 
         private fun AlbumShortInfo.toDatabaseAlbum() =
-            DatabaseAlbum(this.id, this.artistShortInfo.id, this.name, this.images.previewUrl, this.images.coverUrl)
+            DatabaseAlbum(
+                this.id,
+                this.artistShortInfo.id,
+                this.name,
+                this.images.previewUrl,
+                this.images.coverUrl
+            )
     }
 }

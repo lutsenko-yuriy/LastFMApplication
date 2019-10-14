@@ -5,7 +5,7 @@ import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import com.yurich.lastfmapplication.data.network.LastFMServiceAdapter
+import com.yurich.lastfmapplication.domain.status.Either
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
 import com.yurich.lastfmapplication.domain.artists.ArtistsDataSource
@@ -45,7 +45,7 @@ class ArtistViewModel(
             viewModelScope.launch {
                 val data = service.getAlbumsByArtist(artist, 1, params.requestedLoadSize)
 
-                if (data is LastFMServiceAdapter.Either.Result) {
+                if (data is Either.Result) {
                     callback.onResult(data.result, null, 2)
                 } else {
                     errorLiveData.postValue(true)
@@ -60,7 +60,7 @@ class ArtistViewModel(
             viewModelScope.launch {
                 val data = service.getAlbumsByArtist(artist, params.key, params.requestedLoadSize)
 
-                if (data is LastFMServiceAdapter.Either.Result) {
+                if (data is Either.Result) {
                     callback.onResult(data.result, params.key + 1)
                 } else {
                     errorLiveData.postValue(true)

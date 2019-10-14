@@ -1,16 +1,18 @@
 package com.yurich.lastfmapplication.data.database
 
+import com.yurich.lastfmapplication.domain.status.Either
 import com.yurich.lastfmapplication.data.database.entities.*
 import com.yurich.lastfmapplication.domain.albums.AlbumDetailedInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumsCrudInterface
+import com.yurich.lastfmapplication.domain.albums.AlbumsDataSource
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
 class AlbumsDaoProxy(
     private val dao: AlbumsDao
-) : AlbumsCrudInterface {
+) : AlbumsCrudInterface, AlbumsDataSource {
 
     override suspend fun getAllAlbums() = withContext(IO) {
         dao.getAlbumsShortInfo().map { it.toAlbumShortInfo() }
@@ -25,8 +27,14 @@ class AlbumsDaoProxy(
     }
 
     override suspend fun getAlbumDetailedInfo(album: AlbumShortInfo) = withContext(IO) {
-        dao.getAlbumsDetailedInfo(album.id)
+        val albums = dao.getAlbumsDetailedInfo(album.id)
             .map { it.toAlbumDetailedInfo() }
+
+        if (albums.size == 1) {
+            Either.Result(albums.first())
+        } else {
+            Either.Error<AlbumDetailedInfo>()
+        }
     }
 
     companion object {

@@ -1,34 +1,34 @@
 package com.yurich.lastfmapplication.data.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.Query
 import com.yurich.lastfmapplication.data.database.entities.*
 
 @Dao
 abstract class AlbumsDao {
 
-    @Transaction
-    @Query("SELECT * FROM albums INNER JOIN artists")
+    @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id")
     abstract suspend fun getAlbumsShortInfo(): List<DatabaseAlbumShortInfo>
 
-    @Transaction
-    @Query("SELECT * FROM albums INNER JOIN artists WHERE albums.id == :albumsId")
+    @Query("SELECT albums.*, artists.* FROM albums INNER JOIN artists ON albums.album_artistId = artists.artist_id WHERE albums.album_id == :albumsId")
     abstract suspend fun getAlbumsDetailedInfo(albumsId: String): List<DatabaseAlbumDetailedInfo>
 
-    @Update(onConflict = REPLACE)
-    abstract suspend fun putAlbum(album: DatabaseAlbum)
+    @Insert(onConflict = REPLACE)
+    abstract suspend fun putAlbum(albums: List<DatabaseAlbum>)
 
-    @Update(onConflict = REPLACE)
-    abstract suspend fun putArtist(artist: DatabaseArtist)
+    @Insert(onConflict = REPLACE)
+    abstract suspend fun putArtist(artists: List<DatabaseArtist>)
 
-    @Update(onConflict = REPLACE)
+    @Insert(onConflict = REPLACE)
     abstract suspend fun putTracks(tracks: List<DatabaseTrack>)
 
-    @Transaction
-    suspend fun putAlbumData(albumData: DatabaseAlbumDetailedInfo) {
-        putAlbum(albumData.album)
-        putArtist(albumData.artist)
-        putTracks(albumData.tracks)
+    open suspend fun putAlbumDetails(album: DatabaseAlbumDetailedInfo) {
+        putArtist(listOf(album.artist))
+        putAlbum(listOf(album.album))
+        putTracks(album.tracks)
     }
 
     @Delete
@@ -37,17 +37,16 @@ abstract class AlbumsDao {
     @Delete
     abstract suspend fun removeAlbum(album: DatabaseAlbum)
 
-    @Query("SELECT * FROM albums WHERE artistId == :artistId")
+    @Query("SELECT * FROM albums WHERE album_artistId == :artistId")
     abstract suspend fun getAlbumsByArtists(artistId: String): List<DatabaseAlbum>
 
-    @Transaction
-    suspend fun removeAlbumData(albumData: DatabaseAlbumDetailedInfo) {
+    open suspend fun removeAlbumData(albumData: DatabaseAlbumDetailedInfo) {
         // According to DatabaseTrack this will remove album's tracks as well
         removeAlbum(albumData.album)
 
         val albums = getAlbumsByArtists(albumData.artist.id)
 
-        if (albums.isNotEmpty()) {
+        if (albums.isEmpty()) {
             removeArtist(albumData.artist)
         }
     }

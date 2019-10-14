@@ -1,6 +1,7 @@
 package com.yurich.lastfmapplication.data.network
 
 import com.google.gson.Gson
+import com.yurich.lastfmapplication.domain.status.Either
 import com.yurich.lastfmapplication.data.network.entities.ArtistsResponseBody
 import com.yurich.lastfmapplication.data.network.entities.TopAlbumsResponseBody
 import com.yurich.lastfmapplication.data.network.entities.TracksResponseBody
@@ -25,18 +26,18 @@ class LastFMServiceAdapter(
         page: Int,
         limit: Int
     ): Either<List<ArtistShortInfo>> = withContext(IO) {
-        val response = service.getData(
-            mapOf(
-                METHOD to "artist.search",
-                ARTIST_QUERY to query,
-                API_KEY to apiKey,
-                PAGE to page.toString(),
-                LIMIT to limit.toString(),
-                FORMAT to "json"
-            )
-        )
-
         try {
+            val response = service.getData(
+                mapOf(
+                    METHOD to "artist.search",
+                    ARTIST_QUERY to query,
+                    API_KEY to apiKey,
+                    PAGE to page.toString(),
+                    LIMIT to limit.toString(),
+                    FORMAT to "json"
+                )
+            )
+
             return@withContext Either.Result(
                 gson.fromJson<ArtistsResponseBody>(response.string())
                     .results
@@ -54,18 +55,18 @@ class LastFMServiceAdapter(
         page: Int,
         limit: Int
     ): Either<List<AlbumShortInfo>> = withContext(IO) {
-        val response = service.getData(
-            mapOf(
-                METHOD to "artist.getTopAlbums",
-                ARTIST_QUERY to artist.name,
-                API_KEY to apiKey,
-                PAGE to page.toString(),
-                LIMIT to limit.toString(),
-                FORMAT to "json"
-            )
-        )
-
         try {
+            val response = service.getData(
+                mapOf(
+                    METHOD to "artist.getTopAlbums",
+                    ARTIST_QUERY to artist.name,
+                    API_KEY to apiKey,
+                    PAGE to page.toString(),
+                    LIMIT to limit.toString(),
+                    FORMAT to "json"
+                )
+            )
+
             return@withContext Either.Result(
                 gson.fromJson<TopAlbumsResponseBody>(response.string())
                     .topAlbums
@@ -81,17 +82,17 @@ class LastFMServiceAdapter(
     override suspend fun getAlbumDetailedInfo(
         album: AlbumShortInfo
     ): Either<AlbumDetailedInfo> = withContext(IO) {
-        val response = service.getData(
-            mapOf(
-                METHOD to "album.getInfo",
-                ARTIST_QUERY to album.artistShortInfo.name,
-                ALBUM_QUERY to album.name,
-                API_KEY to apiKey,
-                FORMAT to "json"
-            )
-        )
-
         try {
+            val response = service.getData(
+                mapOf(
+                    METHOD to "album.getInfo",
+                    ARTIST_QUERY to album.artistShortInfo.name,
+                    ALBUM_QUERY to album.name,
+                    API_KEY to apiKey,
+                    FORMAT to "json"
+                )
+            )
+
             return@withContext Either.Result(
                 gson.fromJson<TracksResponseBody>(response.string())
                     .album
@@ -174,11 +175,6 @@ class LastFMServiceAdapter(
                 album,
                 this.tracks.track.map { AlbumDetailedInfo.Track(it.id, it.duration, it.name) }
             )
-    }
-
-    sealed class Either<T> {
-        class Result<T>(val result: T) : Either<T>()
-        class Error<T> : Either<T>()
     }
 
 }

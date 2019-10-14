@@ -8,6 +8,4 @@ interface AlbumsCrudInterface {
 
     suspend fun deleteAlbum(album: AlbumDetailedInfo)
 
-    suspend fun getAlbumDetailedInfo(album: AlbumShortInfo): List<AlbumDetailedInfo>
-
 }

@@ -8,8 +8,11 @@ import com.yurich.lastfmapplication.data.database.TestData.testDatabaseArtist
 import com.yurich.lastfmapplication.data.database.TestData.testDatabaseTrack
 import com.yurich.lastfmapplication.data.database.entities.DatabaseAlbumDetailedInfo
 import com.yurich.lastfmapplication.data.database.entities.DatabaseAlbumShortInfo
-import junit.framework.Assert.assertEquals
+import com.yurich.lastfmapplication.domain.status.Either
 import kotlinx.coroutines.runBlocking
+import org.hamcrest.core.IsInstanceOf
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -69,11 +72,11 @@ class AlbumsDaoProxyTest {
         val data = daoProxy.getAlbumDetailedInfo(testAlbumShortInfo)
 
         verify(dao, times(1)).getAlbumsDetailedInfo("123")
-        assertEquals(1, data.size)
+        assertThat(data, IsInstanceOf(Either.Result::class.java))
 
         assertEquals(
             testAlbumDetailedInfo,
-            data.first()
+            (data as Either.Result).result
         )
     }
 

@@ -1,5 +1,6 @@
 package com.yurich.lastfmapplication.presentation.artist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +24,7 @@ class ArtistFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
 
     companion object {
 
-        const val ARTIST = "artist"
+        private const val ARTIST = "artist"
 
         fun newInstance(artist: ArtistShortInfo) = ArtistFragment().apply {
             arguments = Bundle().apply {
@@ -33,9 +34,21 @@ class ArtistFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
 
     }
 
+    private var listener: OnAlbumSelectedListener? = null
+
     private val adapter = AlbumsAdapter(this)
 
     private val viewModel by viewModel<ArtistViewModel> { parametersOf(arguments?.getParcelable<ArtistShortInfo>(ARTIST)) }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? OnAlbumSelectedListener
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +74,10 @@ class ArtistFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
     }
 
     override fun onAlbumClick(album: AlbumShortInfo) {
+        listener?.onAlbumSelected(album)
+    }
 
+    interface OnAlbumSelectedListener {
+        fun onAlbumSelected(album: AlbumShortInfo)
     }
 }

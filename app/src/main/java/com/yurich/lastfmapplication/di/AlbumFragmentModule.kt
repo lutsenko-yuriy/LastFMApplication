@@ -6,5 +6,5 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val albumFragmentModule = module {
-    viewModel { (album: AlbumShortInfo) -> AlbumViewModel(album, get()) }
+    viewModel { (album: AlbumShortInfo) -> AlbumViewModel(album, get(), get()) }
 }

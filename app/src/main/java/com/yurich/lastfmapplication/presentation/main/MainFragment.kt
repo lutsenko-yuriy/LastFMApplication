@@ -5,35 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yurich.lastfmapplication.R
-import com.yurich.lastfmapplication.presentation.favorites.FavoritesFragment
-import com.yurich.lastfmapplication.presentation.search.SearchFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : Fragment(),
-    OnHomeSelectedListener,
-    OnSearchSelectedListener {
-
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                childFragmentManager.beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.fragment_container, FavoritesFragment.newInstance())
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_search -> {
-                childFragmentManager.beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.fragment_container, SearchFragment.newInstance())
-                    .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
+class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -43,20 +18,13 @@ class MainFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        fragment_container?.adapter = FragmentAdapter(context, childFragmentManager)
+        tabs.setupWithViewPager(fragment_container)
     }
 
-    override fun onHomeSelected() {
-        navigation.selectedItemId = R.id.navigation_home
-    }
-
-    override fun onSearchSelected() {
-        navigation.selectedItemId = R.id.navigation_search
-    }
 }

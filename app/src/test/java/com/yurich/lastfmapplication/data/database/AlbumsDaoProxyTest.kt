@@ -34,7 +34,7 @@ class AlbumsDaoProxyTest {
     @Test
     fun getAllAlbums() = runBlocking {
         dao.stub {
-            onBlocking { dao.getAlbumsShortInfo() }.doReturn(
+            onBlocking { dao.getAlbumsShortInfoFromInterval(any(), any()) }.doReturn(
                 listOf(
                     DatabaseAlbumShortInfo(
                         testDatabaseAlbum,
@@ -44,9 +44,9 @@ class AlbumsDaoProxyTest {
             )
         }
 
-        val data = daoProxy.getAllAlbums()
+        val data = daoProxy.getPagedAlbums(0, 30)
 
-        verify(dao, times(1)).getAlbumsShortInfo()
+        verify(dao, times(1)).getAlbumsShortInfoFromInterval(0, 30)
         assertEquals(1, data.size)
 
         assertEquals(

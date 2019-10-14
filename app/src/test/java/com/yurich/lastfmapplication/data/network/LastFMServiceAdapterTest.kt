@@ -4,10 +4,13 @@ import com.nhaarman.mockitokotlin2.*
 import com.yurich.lastfmapplication.domain.albums.AlbumDetailedInfo
 import com.yurich.lastfmapplication.domain.albums.AlbumShortInfo
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
-import junit.framework.Assert.assertEquals
+import com.yurich.lastfmapplication.domain.status.Either
+import org.junit.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType
 import okhttp3.ResponseBody
+import org.hamcrest.core.IsInstanceOf
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -119,9 +122,9 @@ class LastFMServiceAdapterTest {
         val artists = adapter.getArtistsByQuery(" ")
 
         verify(service, times(1)).getData(any())
-        assert(artists is LastFMServiceAdapter.Either.Result)
+        assertThat(artists, IsInstanceOf(Either.Result::class.java))
 
-        val listOfArtists = (artists as LastFMServiceAdapter.Either.Result).result
+        val listOfArtists = (artists as Either.Result).result
 
         assertEquals(1, listOfArtists.size)
         assertEquals(mockArtist, listOfArtists.first())
@@ -145,7 +148,7 @@ class LastFMServiceAdapterTest {
 
         val artists = adapter.getArtistsByQuery(" ")
 
-        assert(artists is LastFMServiceAdapter.Either.Error)
+        assertThat(artists, IsInstanceOf(Either.Error::class.java))
     }
 
 
@@ -205,9 +208,9 @@ class LastFMServiceAdapterTest {
 
         verify(service, times(1)).getData(any())
 
-        assert(albums is LastFMServiceAdapter.Either.Result)
+        assertThat(albums, IsInstanceOf(Either.Result::class.java))
 
-        val listOfAlbums = (albums as LastFMServiceAdapter.Either.Result).result
+        val listOfAlbums = (albums as Either.Result).result
 
         assertEquals(1, listOfAlbums.size)
         assertEquals(mockAlbum, listOfAlbums.first())
@@ -251,9 +254,9 @@ url: "https://www.last.fm/music/Cher"
 
         verify(service, times(1)).getData(any())
 
-        assert(tracks is LastFMServiceAdapter.Either.Result)
+        assertThat(tracks, IsInstanceOf(Either.Result::class.java))
 
-        val listOfTracks = (tracks as LastFMServiceAdapter.Either.Result).result
+        val listOfTracks = (tracks as Either.Result).result
 
         assertEquals(mockAlbum, listOfTracks.shortInfo)
 

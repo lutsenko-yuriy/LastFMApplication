@@ -60,7 +60,7 @@ class FavoritesFragment : Fragment(), AlbumsAdapter.OnAlbumClickListener {
         favorite_albums_list?.layoutManager = LinearLayoutManager(context, VERTICAL, false)
         favorite_albums_list?.addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
 
-        viewModel.favoritesAlbumsLiveData.observe(this, Observer {
+        viewModel.newPagingLiveData().observe(this, Observer {
             favorite_albums_bar?.visibility = View.GONE
             if (it.isEmpty()) {
                 favorite_albums_list?.visibility = View.GONE

@@ -17,9 +17,7 @@ class FavoritesViewModel(
     private val crud: AlbumsCrudInterface
 ) : ViewModel() {
 
-    val favoritesAlbumsLiveData = newPagingLiveData()
-
-    private fun newPagingLiveData(): LiveData<PagedList<AlbumShortInfo>> {
+    fun newPagingLiveData(): LiveData<PagedList<AlbumShortInfo>> {
         val dataSourceFactory = object : DataSource.Factory<Int, AlbumShortInfo>() {
             override fun create(): DataSource<Int, AlbumShortInfo> {
                 return AlbumPagingDataSource()
@@ -38,9 +36,7 @@ class FavoritesViewModel(
             callback: LoadInitialCallback<Int, AlbumShortInfo>
         ) {
             viewModelScope.launch {
-                val data = crud.getPagedAlbums(0, params.requestedLoadSize)
-
-                callback.onResult(data, null, 1)
+                callback.onResult(crud.getPagedAlbums(0, params.requestedLoadSize), null, 1)
             }
         }
 
@@ -49,9 +45,7 @@ class FavoritesViewModel(
             callback: LoadCallback<Int, AlbumShortInfo>
         ) {
             viewModelScope.launch {
-                val data = crud.getPagedAlbums(params.key, params.requestedLoadSize)
-
-                callback.onResult(data, params.key + 1)
+                callback.onResult(crud.getPagedAlbums(params.key, params.requestedLoadSize), params.key + 1)
             }
         }
 

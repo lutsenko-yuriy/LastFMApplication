@@ -8,21 +8,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_albums_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
-
-    <ProgressBar
-        android:id="@+id/favorite_albums_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <Button
-        android:id="@+id/favorite_albums_fill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/favorite_albums_fill_text"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

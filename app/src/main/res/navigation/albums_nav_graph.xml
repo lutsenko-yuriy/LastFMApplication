@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.yurich.lastfmapplication.presentation.main.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_mainFragment_to_artistFragment"
@@ -25,17 +25,24 @@
         android:id="@+id/artistFragment"
         android:name="com.yurich.lastfmapplication.presentation.artist.ArtistFragment"
         android:label="MainFragment"
-        tools:layout="@layout/artist_fragment" >
+        tools:layout="@layout/artist_fragment">
 
         <action
             android:id="@+id/action_artistFragment_to_albumFragment"
             app:destination="@id/albumFragment" />
+        <argument
+            android:name="artist"
+            app:argType="com.yurich.lastfmapplication.domain.artists.ArtistShortInfo" />
 
     </fragment>
 
     <fragment
         android:id="@+id/albumFragment"
         android:name="com.yurich.lastfmapplication.presentation.album.AlbumFragment"
-        android:label="AlbumFragment" />
+        android:label="AlbumFragment"
+        tools:layout="@layout/album_fragment" >
+        <argument android:name="album"
+            app:argType="com.yurich.lastfmapplication.domain.albums.AlbumShortInfo" />
+    </fragment>
 
 </navigation>

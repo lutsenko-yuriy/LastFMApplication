@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/albums_nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/albums_nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.yurich.lastfmapplication.presentation.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main" >
+
+        <action
+            android:id="@+id/action_mainFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.yurich.lastfmapplication.presentation.artist.ArtistFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/artist_fragment" >
+
+        <action
+            android:id="@+id/action_artistFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.yurich.lastfmapplication.presentation.album.AlbumFragment"
+        android:label="AlbumFragment" />
 
 </navigation>

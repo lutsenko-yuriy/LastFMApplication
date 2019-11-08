@@ -12,11 +12,11 @@
         tools:layout="@layout/fragment_main">
 
         <action
-            android:id="@+id/action_mainFragment_to_artistFragment"
+            android:id="@+id/action_to_artistFragment"
             app:destination="@id/artistFragment" />
 
         <action
-            android:id="@+id/action_mainFragment_to_albumFragment"
+            android:id="@+id/action_to_albumFragment"
             app:destination="@id/albumFragment" />
 
     </fragment>
@@ -28,8 +28,9 @@
         tools:layout="@layout/artist_fragment">
 
         <action
-            android:id="@+id/action_artistFragment_to_albumFragment"
+            android:id="@+id/action_to_albumFragment"
             app:destination="@id/albumFragment" />
+
         <argument
             android:name="artist"
             app:argType="com.yurich.lastfmapplication.domain.artists.ArtistShortInfo" />

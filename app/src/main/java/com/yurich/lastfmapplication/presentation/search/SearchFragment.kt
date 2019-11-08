@@ -1,6 +1,5 @@
 package com.yurich.lastfmapplication.presentation.search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +7,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.yurich.lastfmapplication.R
 import com.yurich.lastfmapplication.domain.artists.ArtistShortInfo
+import com.yurich.lastfmapplication.presentation.main.MainFragmentDirections
 import kotlinx.android.synthetic.main.search_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,21 +23,9 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
         fun newInstance() = SearchFragment()
     }
 
-    private var listener: OnArtistSelectedListener? = null
-
     private val viewModel: SearchViewModel by viewModel()
 
     private val adapter = ArtistsAdapter(this)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as? OnArtistSelectedListener
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -94,11 +83,8 @@ class SearchFragment : Fragment(), ArtistsAdapter.OnArtistClickListener {
     }
 
     override fun onArtistClick(artist: ArtistShortInfo) {
-        listener?.onArtistSelected(artist)
-    }
-
-    interface OnArtistSelectedListener {
-        fun onArtistSelected(artist: ArtistShortInfo)
+        val action = MainFragmentDirections.actionToArtistFragment(artist)
+        findNavController().navigate(action)
     }
 
 }

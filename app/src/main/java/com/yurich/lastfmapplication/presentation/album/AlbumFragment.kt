@@ -23,21 +23,12 @@ class AlbumFragment : Fragment() {
 
         private const val ALBUM = "album"
 
-        fun newInstance(album: AlbumShortInfo) = AlbumFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(ALBUM, album)
-            }
-        }
     }
 
     private val adapter = TracksAdapter()
 
     private val viewModel by viewModel<AlbumViewModel> {
-        parametersOf(
-            arguments?.getParcelable<AlbumShortInfo>(
-                ALBUM
-            )
-        )
+        parametersOf(arguments?.getParcelable<AlbumShortInfo>(ALBUM))
     }
 
     override fun onCreateView(

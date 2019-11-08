@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    // TODO - implement navigation with Navigation
     override fun onArtistSelected(artist: ArtistShortInfo) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, ArtistFragment.newInstance(artist))

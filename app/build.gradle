@@ -67,9 +67,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
 
+    // Paging dependencies
     implementation "androidx.paging:paging-runtime:2.1.0"
 
+    // Image loading dependencies
     implementation 'com.github.bumptech.glide:glide:4.10.0'
 
+    // Debugging dependencies
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    // Navigation dependencies
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 }
